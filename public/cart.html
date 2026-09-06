@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Your Cart — QuickCart</title>
+<link rel="stylesheet" href="/css/style.css" />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛒</text></svg>" />
+</head>
+<body>
+<header class="header">
+  <div class="container">
+    <a href="/index.html" class="brand">🛒 QuickCart<span class="tag">grocery</span></a>
+    <button class="hamburger" id="hamburgerBtn">☰</button>
+    <div class="nav-search">
+      <span class="icon">🔍</span>
+      <input type="text" id="navSearchInput" placeholder="Search for atta, dal, oil, snacks..." />
+    </div>
+    <div class="nav-actions">
+      <button class="btn-icon" id="themeToggleBtn" title="Toggle theme"><span id="themeToggleIcon">🌙</span></button>
+      <a href="/wishlist.html" class="nav-link"><span class="ico">🤍</span><span class="txt">Wishlist</span></a>
+      <a href="/cart.html" class="nav-link"><span class="ico">🛍️</span><span class="txt">Cart</span><span class="badge-count hidden" id="cartBadge">0</span></a>
+      <div class="user-menu" id="userMenuLoggedIn" style="display:none;">
+        <button class="avatar" id="avatarBtn"></button>
+        <div class="user-dropdown" id="userDropdown">
+          <a href="/orders.html">📦 My Orders</a>
+          <a href="/profile.html">👤 Profile</a>
+          <a href="/admin.html" id="adminLink" style="display:none;">🛠️ Admin Dashboard</a>
+          <div class="divider"></div>
+          <button id="logoutBtn">🚪 Logout</button>
+        </div>
+      </div>
+      <a href="/login.html" class="btn btn-primary btn-sm" id="loginBtnNav">Login</a>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-drawer-backdrop" id="mobileDrawerBackdrop"></div>
+<div class="mobile-drawer" id="mobileDrawer">
+  <input type="text" id="mobileSearchInput" placeholder="Search products..." />
+  <a href="/index.html">🏠 Home</a>
+  <a href="/wishlist.html">🤍 Wishlist</a>
+  <a href="/cart.html">🛍️ Cart</a>
+  <a href="/admin.html" id="mobileAdminLink" style="display:none;">🛠️ Admin Dashboard</a>
+  <div id="mobileAuthArea"></div>
+</div>
+<main>
+  <div class="container">
+    <div class="section-head"><h2>Your Cart</h2></div>
+
+    <div id="cartLoading" class="empty-state"><div class="emoji">⏳</div><p>Loading your cart...</p></div>
+
+    <div class="cart-layout hidden" id="cartLayout">
+      <div class="cart-items" id="cartItemsList"></div>
+
+      <div class="summary-card">
+        <h3>Order Summary</h3>
+
+        <div id="couponAppliedBox"></div>
+
+        <div class="coupon-box">
+          <input type="text" id="couponInput" placeholder="Enter coupon code" />
+          <button class="btn btn-outline btn-sm" id="applyCouponBtn">Apply</button>
+        </div>
+        <div class="coupon-list" id="availableCoupons"></div>
+
+        <div class="summary-row"><span>Subtotal</span><span id="sumSubtotal">₹0</span></div>
+        <div class="summary-row"><span>Discount</span><span class="discount-val" id="sumDiscount">-₹0</span></div>
+        <div class="summary-row"><span>Delivery Fee</span><span id="sumDelivery">₹0</span></div>
+        <div class="summary-row total"><span>Total</span><span id="sumTotal">₹0</span></div>
+
+        <h3 style="margin-top:22px;">Delivery Address</h3>
+        <div class="address-list" id="addressList"></div>
+        <button class="btn btn-outline btn-sm btn-block" id="addAddressBtn" style="margin-bottom:14px;">+ Add New Address</button>
+
+        <h3>Payment Method</h3>
+        <div class="field">
+          <select class="select" id="paymentMethod" style="width:100%;">
+            <option value="COD">Cash on Delivery</option>
+            <option value="UPI">UPI</option>
+            <option value="Card">Credit / Debit Card</option>
+          </select>
+        </div>
+
+        <button class="btn btn-primary btn-block" id="placeOrderBtn" style="margin-top:10px;">Place Order</button>
+      </div>
+    </div>
+
+    <div class="empty-state hidden" id="cartEmpty">
+      <div class="emoji">🛍️</div>
+      <h3>Your cart is empty</h3>
+      <p>Looks like you haven't added anything yet.</p>
+      <a href="/index.html" class="btn btn-primary" style="margin-top:16px;">Start Shopping</a>
+    </div>
+  </div>
+</main>
+
+<div class="modal-overlay" id="addressModal">
+  <div class="modal">
+    <div class="modal-head"><h3>Add Delivery Address</h3><button class="modal-close" id="closeAddressModal">✕</button></div>
+    <form id="addressForm">
+      <div class="field">
+        <label>Label</label>
+        <select id="addrLabel" class="select" style="width:100%;">
+          <option>Home</option><option>Work</option><option>Other</option>
+        </select>
+      </div>
+      <div class="field"><label>Address Line</label><input id="addrLine" required placeholder="House no, street, area" /></div>
+      <div class="field-row">
+        <div class="field"><label>City</label><input id="addrCity" required placeholder="Mumbai" /></div>
+        <div class="field"><label>Pincode</label><input id="addrPincode" required placeholder="400001" /></div>
+      </div>
+      <div class="field"><label>Phone</label><input id="addrPhone" required placeholder="9876543210" /></div>
+      <button type="submit" class="btn btn-primary btn-block">Save Address</button>
+    </form>
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <h5 style="color:var(--brand); font-size:1.1rem;">🛒 QuickCart</h5>
+        <p>Groceries delivered to your doorstep in minutes. Fresh produce, daily essentials and everyday snacks — all in one place.</p>
+      </div>
+      <div>
+        <h5>Company</h5>
+        <a href="#">About Us</a>
+        <a href="#">Careers</a>
+        <a href="#">Blog</a>
+      </div>
+      <div>
+        <h5>Support</h5>
+        <a href="#">Help Center</a>
+        <a href="#">Track Order</a>
+        <a href="#">Returns</a>
+      </div>
+      <div>
+        <h5>Legal</h5>
+        <a href="#">Terms of Service</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Refund Policy</a>
+      </div>
+    </div>
+    <div class="footer-bottom">&copy; 2026 QuickCart. Built as a demo full-stack e-commerce project. All rights reserved.</div>
+  </div>
+</footer>
+<script src="/js/api.js"></script>
+<script src="/js/theme.js"></script>
+<script src="/js/toast.js"></script>
+<script src="/js/nav.js"></script>
+<script src="/js/cart.js"></script>
+</body></html>

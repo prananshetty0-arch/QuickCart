@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Admin Dashboard — QuickCart</title>
+<link rel="stylesheet" href="/css/style.css" />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛒</text></svg>" />
+</head>
+<body>
+<header class="header">
+  <div class="container">
+    <a href="/index.html" class="brand">🛒 QuickCart<span class="tag">grocery</span></a>
+    <button class="hamburger" id="hamburgerBtn">☰</button>
+    <div class="nav-search">
+      <span class="icon">🔍</span>
+      <input type="text" id="navSearchInput" placeholder="Search for atta, dal, oil, snacks..." />
+    </div>
+    <div class="nav-actions">
+      <button class="btn-icon" id="themeToggleBtn" title="Toggle theme"><span id="themeToggleIcon">🌙</span></button>
+      <a href="/wishlist.html" class="nav-link"><span class="ico">🤍</span><span class="txt">Wishlist</span></a>
+      <a href="/cart.html" class="nav-link"><span class="ico">🛍️</span><span class="txt">Cart</span><span class="badge-count hidden" id="cartBadge">0</span></a>
+      <div class="user-menu" id="userMenuLoggedIn" style="display:none;">
+        <button class="avatar" id="avatarBtn"></button>
+        <div class="user-dropdown" id="userDropdown">
+          <a href="/orders.html">📦 My Orders</a>
+          <a href="/profile.html">👤 Profile</a>
+          <a href="/admin.html" id="adminLink" style="display:none;">🛠️ Admin Dashboard</a>
+          <div class="divider"></div>
+          <button id="logoutBtn">🚪 Logout</button>
+        </div>
+      </div>
+      <a href="/login.html" class="btn btn-primary btn-sm" id="loginBtnNav">Login</a>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-drawer-backdrop" id="mobileDrawerBackdrop"></div>
+<div class="mobile-drawer" id="mobileDrawer">
+  <input type="text" id="mobileSearchInput" placeholder="Search products..." />
+  <a href="/index.html">🏠 Home</a>
+  <a href="/wishlist.html">🤍 Wishlist</a>
+  <a href="/cart.html">🛍️ Cart</a>
+  <a href="/admin.html" id="mobileAdminLink" style="display:none;">🛠️ Admin Dashboard</a>
+  <div id="mobileAuthArea"></div>
+</div>
+<main>
+  <div class="container">
+    <div class="section-head"><h2>Admin Dashboard</h2></div>
+    <div class="admin-shell">
+      <div class="admin-side">
+        <button class="active" data-tab="overview">📊 Overview</button>
+        <button data-tab="products">🛒 Products</button>
+        <button data-tab="orders">📦 Orders</button>
+      </div>
+
+      <div>
+        <div id="admin-overview">
+          <div class="stat-grid" id="statGrid"></div>
+          <div class="table-wrap">
+            <h3 style="padding:14px 4px;">Recent Orders</h3>
+            <table>
+              <thead><tr><th>Order</th><th>Customer</th><th>Total</th><th>Status</th><th>Date</th></tr></thead>
+              <tbody id="recentOrdersBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div id="admin-products" class="hidden">
+          <div class="flex" style="justify-content:space-between; align-items:center; margin-bottom:14px;">
+            <h3>Manage Products</h3>
+            <button class="btn btn-primary btn-sm" id="addProductBtn">+ Add Product</button>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th></th><th>Name</th><th>Category</th><th>Price</th><th>Stock</th><th>Rating</th><th></th></tr></thead>
+              <tbody id="productsBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div id="admin-orders" class="hidden">
+          <h3 style="margin-bottom:14px;">All Orders</h3>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Order</th><th>Customer</th><th>Items</th><th>Total</th><th>Status</th><th>Update</th></tr></thead>
+              <tbody id="allOrdersBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<div class="modal-overlay" id="productModal">
+  <div class="modal">
+    <div class="modal-head"><h3 id="productModalTitle">Add Product</h3><button class="modal-close" id="closeProductModal">✕</button></div>
+    <form id="productForm">
+      <input type="hidden" id="prodId" />
+      <div class="field"><label>Name</label><input id="prodName" required /></div>
+      <div class="field"><label>Description</label><input id="prodDesc" /></div>
+      <div class="field">
+        <label>Category</label>
+        <select id="prodCategory" class="select" style="width:100%;" required>
+          <option>Fruits & Vegetables</option>
+          <option>Dairy & Breakfast</option>
+          <option>Snacks & Munchies</option>
+          <option>Beverages</option>
+          <option>Bakery</option>
+          <option>Personal Care</option>
+          <option>Household</option>
+          <option>Atta, Rice & Dal</option>
+        </select>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>Price (₹)</label><input type="number" id="prodPrice" required min="0" /></div>
+        <div class="field"><label>MRP (₹)</label><input type="number" id="prodMrp" required min="0" /></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>Unit</label><input id="prodUnit" required placeholder="500 g" /></div>
+        <div class="field"><label>Stock</label><input type="number" id="prodStock" required min="0" /></div>
+      </div>
+      <div class="field"><label>Icon (emoji)</label><input id="prodIcon" placeholder="🛒" /></div>
+      <button type="submit" class="btn btn-primary btn-block">Save Product</button>
+    </form>
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <h5 style="color:var(--brand); font-size:1.1rem;">🛒 QuickCart</h5>
+        <p>Groceries delivered to your doorstep in minutes. Fresh produce, daily essentials and everyday snacks — all in one place.</p>
+      </div>
+      <div>
+        <h5>Company</h5>
+        <a href="#">About Us</a>
+        <a href="#">Careers</a>
+        <a href="#">Blog</a>
+      </div>
+      <div>
+        <h5>Support</h5>
+        <a href="#">Help Center</a>
+        <a href="#">Track Order</a>
+        <a href="#">Returns</a>
+      </div>
+      <div>
+        <h5>Legal</h5>
+        <a href="#">Terms of Service</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Refund Policy</a>
+      </div>
+    </div>
+    <div class="footer-bottom">&copy; 2026 QuickCart. Built as a demo full-stack e-commerce project. All rights reserved.</div>
+  </div>
+</footer>
+<script src="/js/api.js"></script>
+<script src="/js/theme.js"></script>
+<script src="/js/toast.js"></script>
+<script src="/js/nav.js"></script>
+<script src="/js/admin.js"></script>
+</body></html>

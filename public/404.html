@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Page Not Found — QuickCart</title>
+<link rel="stylesheet" href="/css/style.css" />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛒</text></svg>" />
+</head>
+<body>
+<header class="header">
+  <div class="container">
+    <a href="/index.html" class="brand">🛒 QuickCart<span class="tag">grocery</span></a>
+    <button class="hamburger" id="hamburgerBtn">☰</button>
+    <div class="nav-search">
+      <span class="icon">🔍</span>
+      <input type="text" id="navSearchInput" placeholder="Search for atta, dal, oil, snacks..." />
+    </div>
+    <div class="nav-actions">
+      <button class="btn-icon" id="themeToggleBtn" title="Toggle theme"><span id="themeToggleIcon">🌙</span></button>
+      <a href="/wishlist.html" class="nav-link"><span class="ico">🤍</span><span class="txt">Wishlist</span></a>
+      <a href="/cart.html" class="nav-link"><span class="ico">🛍️</span><span class="txt">Cart</span><span class="badge-count hidden" id="cartBadge">0</span></a>
+      <div class="user-menu" id="userMenuLoggedIn" style="display:none;">
+        <button class="avatar" id="avatarBtn"></button>
+        <div class="user-dropdown" id="userDropdown">
+          <a href="/orders.html">📦 My Orders</a>
+          <a href="/profile.html">👤 Profile</a>
+          <a href="/admin.html" id="adminLink" style="display:none;">🛠️ Admin Dashboard</a>
+          <div class="divider"></div>
+          <button id="logoutBtn">🚪 Logout</button>
+        </div>
+      </div>
+      <a href="/login.html" class="btn btn-primary btn-sm" id="loginBtnNav">Login</a>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-drawer-backdrop" id="mobileDrawerBackdrop"></div>
+<div class="mobile-drawer" id="mobileDrawer">
+  <input type="text" id="mobileSearchInput" placeholder="Search products..." />
+  <a href="/index.html">🏠 Home</a>
+  <a href="/wishlist.html">🤍 Wishlist</a>
+  <a href="/cart.html">🛍️ Cart</a>
+  <a href="/admin.html" id="mobileAdminLink" style="display:none;">🛠️ Admin Dashboard</a>
+  <div id="mobileAuthArea"></div>
+</div>
+<main>
+  <div class="error-page">
+    <div class="code">404</div>
+    <h2>Page not found</h2>
+    <p style="color:var(--text-muted); margin: 10px 0 22px;">The page you're looking for doesn't exist or was moved.</p>
+    <a href="/index.html" class="btn btn-primary">Back to Home</a>
+  </div>
+</main>
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <h5 style="color:var(--brand); font-size:1.1rem;">🛒 QuickCart</h5>
+        <p>Groceries delivered to your doorstep in minutes. Fresh produce, daily essentials and everyday snacks — all in one place.</p>
+      </div>
+      <div>
+        <h5>Company</h5>
+        <a href="#">About Us</a>
+        <a href="#">Careers</a>
+        <a href="#">Blog</a>
+      </div>
+      <div>
+        <h5>Support</h5>
+        <a href="#">Help Center</a>
+        <a href="#">Track Order</a>
+        <a href="#">Returns</a>
+      </div>
+      <div>
+        <h5>Legal</h5>
+        <a href="#">Terms of Service</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Refund Policy</a>
+      </div>
+    </div>
+    <div class="footer-bottom">&copy; 2026 QuickCart. Built as a demo full-stack e-commerce project. All rights reserved.</div>
+  </div>
+</footer>
+<script src="/js/api.js"></script>
+<script src="/js/theme.js"></script>
+<script src="/js/toast.js"></script>
+<script src="/js/nav.js"></script>
+</body></html>
