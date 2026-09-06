@@ -16,6 +16,7 @@ const wishlistRoutes = require('./routes/wishlist');
 const couponRoutes = require('./routes/coupons');
 
 const app = express();
+app.set('trust proxy', 1);
 
 app.use(
   helmet({
