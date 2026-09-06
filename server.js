@@ -25,14 +25,7 @@ app.use(
 );
 app.use(compression());
 app.use(morgan('dev'));
-app.use(cors({
-  origin: [
-    'https://quickcart-five-amber.vercel.app',
-    'https://quickcart-4wwghj7ua-l-auda.vercel.app',
-    'https://quickcart-ukbb.onrender.com'
-  ],
-  credentials: true
-}));
+app.use(cors());
 app.use(express.json());
 
 // Basic rate limiting on auth endpoints to slow down brute-force attempts

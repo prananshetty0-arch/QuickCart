@@ -1,5 +1,5 @@
 // ============ API helper ============
-const API_BASE = 'https://quickcart-ukbb.onrender.com/api';
+const API_BASE = '/api';
 
 const Auth = {
   getToken() { return localStorage.getItem('qc_token'); },
